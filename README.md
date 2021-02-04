@@ -1,14 +1,12 @@
-# Webpack Starter
+TODO LIST
 
-Este es el proyecto inicial para crear aplicaciones utilizando webpack.
+CREATED BY MATIAS FUENTES
 
-### Notas:
-Recuerden reconstruir los módulos de Node
-```
-npm install
-```
+DESCRIPTION:
 
-Y para construir el build, recueren:
-```
-npm run build
-```
+This is a Todo List, you can add todos to a list, and erase them one by one,
+erase the completed ones, show just the completed, show just pendings, or show them all.
+
+TOOLS USED:
+-Webpack.
+-NPM.
