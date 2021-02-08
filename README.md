@@ -9,4 +9,8 @@ erase the completed ones, show just the completed, show just pendings, or show t
 
 TOOLS USED:
 -Webpack.
+<<<<<<< HEAD
 -NPM.
+=======
+-NPM.
+>>>>>>> 47d805c... Crear carpeta docs, funcionalidades terminadas

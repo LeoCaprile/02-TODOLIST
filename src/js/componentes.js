@@ -5,11 +5,38 @@ const divTodoList           = document.querySelector('.contenedor-lista');
 const inputTodo             = document.querySelector('#inputtodo');
 const btnBorrarCompletados  = document.querySelector('#borrar-completados')
 const btnesFunc             = document.querySelector('#botones__todos')
+const btnAgregar            = document.querySelector('#btn__agregar')
+
+export const ActualizarPendientes =()=>{
+    const cantPend = document.querySelector('#cantidad__pendientes')
+    let count = 0;
+  
+    for(let i=divTodoList.children.length-1; i>=0; i--){
+
+        const elemento = divTodoList.children[i];
+        
+        if( elemento.classList.contains('completed'))
+        {
+
+        }else{
+            count++;
+        }
+
+    
+}
+
+cantPend.innerText = `Pendientes:${count}`
+
+}
+
+ActualizarPendientes();
+
+
 export const crearTodoHtml = (todo) =>{
     
    
-    const htmltodo = 
-    `<div id="${(todo.completado)?'completed':''}" class="box" data-id="${todo.id}">
+const htmltodo = 
+    `<div class="box ${(todo.completado)?'completed':''}" data-id="${todo.id}">
         
     <div id="items" class="column is-full">
 
@@ -33,6 +60,8 @@ export const crearTodoHtml = (todo) =>{
 
 }
 
+
+
 //Insertar TODO
 inputTodo.addEventListener('keyup', (event)=>{
 
@@ -40,12 +69,27 @@ inputTodo.addEventListener('keyup', (event)=>{
 
         const nuevoTodo = new Todo(inputTodo.value);
         todoList.nuevoTodo(nuevoTodo);
-        console.log(todoList)
         inputTodo.value=''
         crearTodoHtml(nuevoTodo)
     }
 
+    ActualizarPendientes();
+
 })
+
+btnAgregar.addEventListener('click', ()=>{
+
+    if(inputTodo.value.length>0){
+        
+        const nuevoTodo = new Todo(inputTodo.value);
+        todoList.nuevoTodo(nuevoTodo);
+        inputTodo.value=''
+        crearTodoHtml(nuevoTodo)
+    }
+    ActualizarPendientes();
+
+})
+
 
 //Marcar Completado TODO
 
@@ -58,6 +102,7 @@ const todoId            = todoElement.getAttribute('data-id');
 if(nombreElemento.includes('input')){
     todoList.marcarCompletado(todoId);
     todoElement.classList.toggle('completed');
+
 }
 
 //Eliminar TODO
@@ -65,18 +110,22 @@ if(nombreElemento.includes('input')){
 if(nombreElemento.includes('button')){
     todoElement.classList.add('animate');    
     todoList.eliminarTodo(todoId)
-}
-todoElement.addEventListener('transitionend',()=>{
+    setTimeout(()=>{ 
     divTodoList.removeChild(todoElement)
-})
+    ActualizarPendientes();
+    },500)
+
+}
+
+ActualizarPendientes();
 
 })
 
 //Borrar TODOS completados
 
 btnBorrarCompletados.addEventListener('click', ()=>
-{
-
+    
+    {
     todoList.elminarCompletados();
 
     for(let i=divTodoList.children.length-1; i>=0; i--){
@@ -91,10 +140,13 @@ btnBorrarCompletados.addEventListener('click', ()=>
             },500)
             
         }
-
+        
+        
     }
 
-})
+    ActualizarPendientes();
+
+    })
 
 //Boton Pendientes, Completados y Todos
 
@@ -102,7 +154,6 @@ btnesFunc.addEventListener('click',(event)=>{
 
     const nameOfButton  = event.target.innerText;
 
-    
     if(nameOfButton != "Pendientes" && nameOfButton != "Todos" && nameOfButton != "Completados" ){
         return;
     }
@@ -130,4 +181,5 @@ btnesFunc.addEventListener('click',(event)=>{
     }
     
 
-})
+}
+)
